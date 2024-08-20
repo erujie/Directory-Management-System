@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main(int argc, char** argv) {
+	cout <<"        MAIN MENU \n" ;
+	cout <<"--------------------------\n" ;
+	
+	cout <<"Display a menu with options for the user to: \n";
+	cout <<" 1. List files in the current director. \n";
+	cout <<" 2. Create a new director. \n";
+	cout <<" 3. Change the working director. \n";
+	cout <<" 4. Exit the program. \n";
+	
+	
+	
+
+	
+	return 0;
+}
