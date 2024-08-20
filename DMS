@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
 		    cout <<"2. List of Extension Files\n";
 		    cout <<"3. List of Name Wise\n";
 		    cout <<" Enter the Number: "; 
-			cin >> files;
+			//cin >> files;
 			//switch (files) {
 			//	case 1: 
 			//	cout <<""
