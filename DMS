@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+void createNewDirectory();
+void listAllFile();
+
+string name;
 int main(int argc, char** argv) {
 	while(true){
 		int menu, files;
@@ -23,30 +27,38 @@ int main(int argc, char** argv) {
 		    cout <<"2. List of Extension Files\n";
 		    cout <<"3. List of Name Wise\n";
 		    cout <<" Enter the Number: "; 
-			//cin >> files;
-			//switch (files) {
-			//	case 1: 
-			//	cout <<""
+			cin >> files;
+			switch (files) {
+				case 1: 
+                    listAllFile();
+                break;
+                
 			break;	
 			
-			//}
+			}
 		case 2:
-			cout <<"Enter the Directory name: ";
-			cin >> name;
-			cout << "Current directoryL: C:|Users|UserName|Documents \n";
-			cout << " NewFolder Directory Successfully Created \n";
-			cout << "Press any key to continue...";
-			cin.ignore();
-                        cin.get();
+			createNewDirectory();
 			break;
 			
 	    }
 	}
 	
-	
-	
-	
-
-
 	return 0;
+}
+void listAllFile(){
+    cout <<"List of All Files \n" << name << endl;
+    
+}
+
+void createNewDirectory(){
+    cout <<"Enter the Directory name: ";
+    cin >> name;
+    cout << "Current directory: C:|Users|UserName|Documents \n";
+	cout << " NewFolder Directory Successfully Created \n";
+	cout << "Press any key to continue...";
+    cin.ignore();
+    cin.get();
+    
+    
+
 }
