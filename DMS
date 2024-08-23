@@ -2,18 +2,20 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-	int menu, files;
-	cout <<"        MAIN MENU \n" ;
-	cout <<"--------------------------\n" ;
+	while(true){
+		int menu, files;
 	
-	cout <<" 1. To Display List of Files. \n";
-	cout <<" 2. To Create New Directory. \n";
-	cout <<" 3. To Change the Working Directory. \n";
-	cout <<" 4. Exit. \n";
-	cout <<"Enter the Number: ";
-	cin >> menu;
+        cout <<"        MAIN MENU \n" ;
+	    cout <<"--------------------------\n" ;
 	
-	switch (menu) {
+	    cout <<" 1. To Display List of Files. \n";
+	    cout <<" 2. To Create New Directory. \n";
+	    cout <<" 3. To Change the Working Directory. \n";
+	    cout <<" 4. Exit. \n";
+	    cout <<"Enter the Number: ";
+	    cin >> menu;
+	
+	    switch (menu) {
 		case 1:
 			cout <<"        LIST FILE DETAIL \n";
 			cout <<"---------------------------------\n";
@@ -25,11 +27,22 @@ int main(int argc, char** argv) {
 			//switch (files) {
 			//	case 1: 
 			//	cout <<""
-				
+			break;	
 			
 			//}
-			
+		case 2:
+			string name, press;
+			cout <<"Enter the Directory name: ";
+			cin >> name;
+			cout << "Current directoryL: C:|Users|UserName|Documents \n";
+			cout << " NewFolder Directory Successfully Created \n";
+			cout << "Press any key to continue...";
+			cin >> press;
+			break;
+			return 0;
+	    }
 	}
+	
 	
 	
 	
