@@ -31,15 +31,15 @@ int main(int argc, char** argv) {
 			
 			//}
 		case 2:
-			string name, press;
 			cout <<"Enter the Directory name: ";
 			cin >> name;
 			cout << "Current directoryL: C:|Users|UserName|Documents \n";
 			cout << " NewFolder Directory Successfully Created \n";
 			cout << "Press any key to continue...";
-			cin >> press;
+			cin.ignore();
+                        cin.get();
 			break;
-			return 0;
+			
 	    }
 	}
 	
