@@ -2,12 +2,9 @@
 #include <string>
 using namespace std;
 
-void createNewDirectory();
-void listAllFile();
-
+int main(int argc, char** argv) {
 string name;
 int count = 0;
-int main(int argc, char** argv) {
     while(true) {
         int menu, files;
 
@@ -32,7 +29,15 @@ int main(int argc, char** argv) {
             cin >> files;
             switch (files) {
             case 1:
-                listAllFile();
+                cout <<"List of All Files \n" << name << endl;
+                cout <<"(continue...)";
+                cin.ignore();
+                cin.get();
+                cout <<" \n";
+                cout <<"Total Files: " << count << endl;
+                cout <<" Press any key to continue...";
+                cin.ignore();
+                cin.get();
                 break;
             }
 
@@ -41,39 +46,23 @@ int main(int argc, char** argv) {
             break;
 
         case 2:
-            createNewDirectory();
+            cout <<"Enter the Directory name: \n (type 'done' to finish)" << endl;
+            while (true){
+                cin >> name;
+                if (name == "done" ) {
+                   break; 
+                } 
+                count++;
+            }
+            cout << "Current directory: C:|Users|UserName|Documents \n";
+            cout << " NewFolder Directory Successfully Created \n";
+            cout << "Press any key to continue...";
+            cin.ignore();
+            cin.get();
             break;
 
         }
     }
 
     return 0;
-}
-void listAllFile() {
-    cout <<"List of All Files \n" << name << endl;
-    cout <<"(continue...)";
-    cin.ignore();
-    cin.get();
-    cout <<" \n";
-    cout <<"Total Files: " << count << endl;
-    cout <<" Press any key to continue...";
-    cin.ignore();
-    cin.get();
-    
-
-}
-
-void createNewDirectory() {
-    cout <<"Enter the Directory name: \n (type 'done' to finish)" << endl;
-    while (true){
-    getline(cin, name);
-    if (name == "done" ) {
-    break; } count++;
-    }
-    cout << "Current directory: C:|Users|UserName|Documents \n";
-    cout << " NewFolder Directory Successfully Created \n";
-    cout << "Press any key to continue...";
-    cin.ignore();
-    cin.get();
-
 }
