@@ -1,10 +1,12 @@
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 int main(int argc, char** argv) {
-string name;
-int count = 0;
+    vector<string> listnames;
+    string name;
+    int count = -1;
     while(true) {
         int menu, files;
 
@@ -29,16 +31,20 @@ int count = 0;
             cin >> files;
             switch (files) {
             case 1:
-                cout <<"List of All Files \n" << name << endl;
-                cout <<"(continue...)";
-                cin.ignore();
-                cin.get();
-                cout <<" \n";
-                cout <<"Total Files: " << count << endl;
-                cout <<" Press any key to continue...";
-                cin.ignore();
-                cin.get();
-                break;
+               cout <<"List of All File \n";
+               for (const auto& name : listnames) {
+                 cout << name << "\n";
+               }
+               
+               cout <<"(continue...)";
+               cin.ignore();
+               cin.get();
+               cout <<" \n";
+               cout <<"Total Files: " << count << endl;
+               cout <<" Press any key to continue...";
+               cin.ignore();
+               cin.get();
+               break;
             }
 
 
@@ -46,20 +52,24 @@ int count = 0;
             break;
 
         case 2:
-            cout <<"Enter the Directory name: \n (type 'done' to finish)" << endl;
-            while (true){
-                cin >> name;
-                if (name == "done" ) {
-                   break; 
-                } 
-                count++;
-            }
-            cout << "Current directory: C:|Users|UserName|Documents \n";
-            cout << " NewFolder Directory Successfully Created \n";
-            cout << "Press any key to continue...";
-            cin.ignore();
-            cin.get();
-            break;
+           cout << "Enter the Directory name: \n (type 'done' to finish)\n";
+           while (true) {
+               getline(cin, name);
+
+               if (name == "done") {
+                  break;
+               }
+               count++;
+
+               listnames.push_back(name);
+           }
+        
+           cout << "Current directory: C:|Users|UserName|Documents \n";
+           cout << " NewFolder Directory Successfully Created \n";
+           cout << "Press any key to continue...";
+           cin.ignore();
+           cin.get();
+           break;
 
         }
     }
