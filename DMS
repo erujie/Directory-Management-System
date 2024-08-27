@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+//#include <direct.h>
+
 using namespace std;
 
 vector<string> listnames;
@@ -8,7 +10,7 @@ void list_file();
 void directory();
 //void change_dir();
 
-void directory(){
+void directory(){ //2
     cout << "Enter the Directory name: \n (type 'done' to finish)\n";
     string name;
     while (true) {
@@ -20,10 +22,19 @@ void directory(){
 
         listnames.push_back(name);
     }
+    /*if (_mkdir(dirName.c_str()) == 0) {
+        cout << "Directory created successfully.\n";
+    } else {
+        cout << "Failed to create directory.\n";
+    }
+
+    cout << "Press any key to continue...";
+    cin.get();*/
         
     cout << "Current directory: C:|Users|UserName|Documents \n";
     cout << " NewFolder Directory Successfully Created \n";
     cout << "Press any key to continue...";
+    cout <<"\n";
     cin.get();
 }
 
@@ -43,6 +54,7 @@ int main(int argc, char** argv) {
         cout <<" 4. Exit. \n";
         cout <<"Enter the Number: ";
         cin >> menu;
+        cout <<"\n";
 
         switch (menu) {
         case 1:
@@ -58,14 +70,14 @@ int main(int argc, char** argv) {
            cout <<"Exiting program...";
            return 0;
         default:
-           cout <<"INVALID OPTION";
-           
+           cout <<"INVALID OPTION\n";
+           cout <<"\n";
         }
     }
 
     return 0;
 }
-void list_file(){
+void list_file(){ //1
     int files;
     cout <<"        LIST FILE DETAIL \n";
     cout <<"---------------------------------\n";
@@ -76,6 +88,7 @@ void list_file(){
     cin >> files;
     switch (files) {
     case 1:
+       cout <<"\n";
        cout <<"List of All File \n";
        for (const auto& name : listnames) {
            cout << name << "\n";
@@ -87,7 +100,7 @@ void list_file(){
        cout <<" \n";
        cout <<"Total Files: " << listnames.size() -1 << endl;
        cout <<" Press any key to continue...";
-       cin.ignore();
+       cout <<"\n";
        cin.get();
        break;
     }
