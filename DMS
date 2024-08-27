@@ -2,15 +2,37 @@
 #include <vector>
 using namespace std;
 
+vector<string> listnames;
+
 void list_file();
 void directory();
-void change_dir();
+//void change_dir();
+
+void directory(){
+    cout << "Enter the Directory name: \n (type 'done' to finish)\n";
+    string name;
+    while (true) {
+        getline(cin, name);
+
+        if (name == "done") {
+            break;
+        }
+
+        listnames.push_back(name);
+    }
+        
+    cout << "Current directory: C:|Users|UserName|Documents \n";
+    cout << " NewFolder Directory Successfully Created \n";
+    cout << "Press any key to continue...";
+    cin.get();
+}
+
 
 
 int main(int argc, char** argv) {
     
     while(true) {
-        int menu, files;
+        int menu;
 
         cout <<"        MAIN MENU \n" ;
         cout <<"--------------------------\n" ;
@@ -44,6 +66,7 @@ int main(int argc, char** argv) {
     return 0;
 }
 void list_file(){
+    int files;
     cout <<"        LIST FILE DETAIL \n";
     cout <<"---------------------------------\n";
     cout <<"1. List All Files\n";
@@ -62,31 +85,10 @@ void list_file(){
        cin.ignore();
        cin.get();
        cout <<" \n";
-       cout <<"Total Files: " << count << endl;
+       cout <<"Total Files: " << listnames.size() << endl;
        cout <<" Press any key to continue...";
        cin.ignore();
        cin.get();
        break;
-}
-void directory(){
-    int count = -1;
-    vector<string> listnames;
-    cout << "Enter the Directory name: \n (type 'done' to finish)\n";
-    string name;
-    while (true) {
-        getline(cin, name);
-
-        if (name == "done") {
-            break;
-        }
-        count++;
-
-        listnames.push_back(name);
     }
-        
-    cout << "Current directory: C:|Users|UserName|Documents \n";
-    cout << " NewFolder Directory Successfully Created \n";
-    cout << "Press any key to continue...";
-    cin.ignore();
-    cin.get();
 }
