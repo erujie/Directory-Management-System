@@ -5,10 +5,27 @@
 
 using namespace std;
 
-
 void list_file();
 void directory();
 void change_dir();
+
+void directory(){ 
+    string name;
+    cout << "Enter the Directory name: ";	
+	getline(cin, name);
+    
+	if (_mkdir(name.c_str()) == 0) {
+        cout<< name << "Directory created successfully.\n";
+    } else {
+        cout << "Failed to create directory.\n";
+    }
+	cout<<"Press any key to continue...";
+	cin.get();
+
+}
+
+
+
 
 
 int main(int argc, char** argv) {
@@ -31,11 +48,11 @@ int main(int argc, char** argv) {
         case 1:
             list_file();
             break;
-
         case 2:
             directory();
            break;
         case 3:
+        	change_dir();
            break;
         case 4:
            cout <<"Exiting program...";
@@ -48,7 +65,17 @@ int main(int argc, char** argv) {
 
     return 0;
 }
- switch (files) {
+
+void list_file(){ 
+    int files;
+    cout <<"        LIST FILE DETAIL \n";
+    cout <<"---------------------------------\n";
+    cout <<"1. List All Files\n";
+    cout <<"2. List of Extension Files\n";
+    cout <<"3. List of Name Wise\n";
+    cout <<" Enter the Number: ";
+    cin >> files;
+    switch (files) {
         case 1: {
             struct _finddata_t fileinfo;
             intptr_t handle = _findfirst("*.*", &fileinfo);
@@ -56,7 +83,7 @@ int main(int argc, char** argv) {
             if (handle == -1) {
                 cout << "No files found in the current directory.\n";
             } else {
-                cout << "List of All Files:\n";
+                cout << "List of All(*.*) Files:\n";
                 do {
                     if (!(fileinfo.attrib & _A_SUBDIR)) {
                         cout << fileinfo.name << "\n";
@@ -116,33 +143,17 @@ int main(int argc, char** argv) {
 }
 
 
-
-
-void directory(){ //2
-    string name;
-    cout << "Enter the Directory name: ";	
-	getline(cin, name);
-    
-	if (_mkdir(name.c_str()) == 0) {
-        cout<< name << "Directory created successfully.\n";
-    } else {
-        cout << "Failed to create directory.\n";
-    }
-	cout<<"Press any key to continue...";
-	cin.get();
-
-}
-void change_dir() {
+void change_dir(){
     int option;
-    cout << "        CHANGE DIRECTORY \n";
+    cout << "     Change Directory \n";
     cout << "--------------------------\n";
-    cout << "1. Move one step back (to the parent directory).\n";
-    cout << "2. Move to the root directory.\n";
-    cout << "3. Move to a specific directory.\n";
+    cout << "1. Step by Step Backward\n";
+    cout << "2. Go to Root Directory\n";
+    cout << "3. Forward Directory\n";
     cout << "Enter the Number: ";
     cin >> option;
 
-    string newDir;
+    string new;
     switch (option) {
         case 1: {
             
@@ -163,10 +174,10 @@ void change_dir() {
         }
         case 3: {
             
-            cout << "Enter the path of the directory to change to: ";
-            getline(cin, newDir);
+            cout << "Please enter the Directory Name: ";
+            getline(cin, new);
 
-            if (_chdir(newDir.c_str()) == 0) {
+            if (_chdir(new.c_str()) == 0) {
                 cout << "Successfully changed directory to " << newDir << ".\n";
             } else {
                 cout << "Failed to change directory.\n";
@@ -181,3 +192,8 @@ void change_dir() {
     cout << "Press any key to continue...";
     cin.get();
 }
+
+
+
+
+
