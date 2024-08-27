@@ -85,7 +85,7 @@ void list_file(){
        cin.ignore();
        cin.get();
        cout <<" \n";
-       cout <<"Total Files: " << listnames.size() << endl;
+       cout <<"Total Files: " << listnames.size() -1 << endl;
        cout <<" Press any key to continue...";
        cin.ignore();
        cin.get();
