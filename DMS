@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
-//#include <direct.h>
+#include <string>
+#include <direct.h>
 
 using namespace std;
 
@@ -9,35 +10,6 @@ vector<string> listnames;
 void list_file();
 void directory();
 //void change_dir();
-
-void directory(){ //2
-    cout << "Enter the Directory name: \n (type 'done' to finish)\n";
-    string name;
-    while (true) {
-        getline(cin, name);
-
-        if (name == "done") {
-            break;
-        }
-
-        listnames.push_back(name);
-    }
-    /*if (_mkdir(dirName.c_str()) == 0) {
-        cout << "Directory created successfully.\n";
-    } else {
-        cout << "Failed to create directory.\n";
-    }
-
-    cout << "Press any key to continue...";
-    cin.get();*/
-        
-    cout << "Current directory: C:|Users|UserName|Documents \n";
-    cout << " NewFolder Directory Successfully Created \n";
-    cout << "Press any key to continue...";
-    cout <<"\n";
-    cin.get();
-}
-
 
 
 int main(int argc, char** argv) {
@@ -90,10 +62,9 @@ void list_file(){ //1
     case 1:
        cout <<"\n";
        cout <<"List of All File \n";
-       for (const auto& name : listnames) {
-           cout << name << "\n";
+       for (int n = 0; n < listnames.size(); ++n) {
+           cout << listnames[n] << "\n";
        }
-               
        cout <<"(continue...)";
        cin.ignore();
        cin.get();
@@ -104,4 +75,24 @@ void list_file(){ //1
        cin.get();
        break;
     }
+   // case 2:
+    //	cout<<""
+}
+
+
+
+
+void directory(){ //2
+    string name;
+    cout << "Enter the Directory name: ";	
+	getline(cin, name);
+    
+	if (_mkdir(name.c_str()) == 0) {
+        cout<< name << "Directory created successfully.\n";
+    } else {
+        cout << "Failed to create directory.\n";
+    }
+	cout<<"Press any key to continue...";
+	cin.get();
+
 }
