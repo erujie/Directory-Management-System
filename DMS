@@ -5,11 +5,10 @@
 
 using namespace std;
 
-vector<string> listnames;
 
 void list_file();
 void directory();
-//void change_dir();
+void change_dir();
 
 
 int main(int argc, char** argv) {
@@ -95,4 +94,53 @@ void directory(){ //2
 	cout<<"Press any key to continue...";
 	cin.get();
 
+}
+void change_dir() {
+    int option;
+    cout << "        CHANGE DIRECTORY \n";
+    cout << "--------------------------\n";
+    cout << "1. Move one step back (to the parent directory).\n";
+    cout << "2. Move to the root directory.\n";
+    cout << "3. Move to a specific directory.\n";
+    cout << "Enter the Number: ";
+    cin >> option;
+
+    string newDir;
+    switch (option) {
+        case 1: {
+            
+            if (_chdir("..") == 0) {
+                cout << "Moved to the parent directory.\n";
+            } else {
+                cout << "Failed to move to the parent directory.\n";
+            }
+            break;
+        }
+        case 2: {
+            if (_chdir("C:\\") == 0) { 
+                cout << "Moved to the root directory.\n";
+            } else {
+                cout << "Failed to move to the root directory.\n";
+            }
+            break;
+        }
+        case 3: {
+            
+            cout << "Enter the path of the directory to change to: ";
+            getline(cin, newDir);
+
+            if (_chdir(newDir.c_str()) == 0) {
+                cout << "Successfully changed directory to " << newDir << ".\n";
+            } else {
+                cout << "Failed to change directory.\n";
+            }
+            break;
+        }
+        default:
+            cout << "Invalid option.\n";
+            break;
+    }
+
+    cout << "Press any key to continue...";
+    cin.get();
 }
