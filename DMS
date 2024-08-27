@@ -48,34 +48,71 @@ int main(int argc, char** argv) {
 
     return 0;
 }
-void list_file(){ //1
-    int files;
-    cout <<"        LIST FILE DETAIL \n";
-    cout <<"---------------------------------\n";
-    cout <<"1. List All Files\n";
-    cout <<"2. List of Extension Files\n";
-    cout <<"3. List of Name Wise\n";
-    cout <<" Enter the Number: ";
-    cin >> files;
-    switch (files) {
-    case 1:
-       cout <<"\n";
-       cout <<"List of All File \n";
-       for (int n = 0; n < listnames.size(); ++n) {
-           cout << listnames[n] << "\n";
-       }
-       cout <<"(continue...)";
-       cin.ignore();
-       cin.get();
-       cout <<" \n";
-       cout <<"Total Files: " << listnames.size() -1 << endl;
-       cout <<" Press any key to continue...";
-       cout <<"\n";
-       cin.get();
-       break;
-    }
-   // case 2:
-    //	cout<<""
+ switch (files) {
+        case 1: {
+            struct _finddata_t fileinfo;
+            intptr_t handle = _findfirst("*.*", &fileinfo);
+
+            if (handle == -1) {
+                cout << "No files found in the current directory.\n";
+            } else {
+                cout << "List of All Files:\n";
+                do {
+                    if (!(fileinfo.attrib & _A_SUBDIR)) {
+                        cout << fileinfo.name << "\n";
+                    }
+                } while (_findnext(handle, &fileinfo) == 0);
+                _findclose(handle);
+            }
+            break;
+        }
+        case 2: {
+            string extension;
+            cout << "Enter the file extension (e.g., .txt): ";
+            cin >> extension;
+            cin.ignore();
+
+            struct _finddata_t fileinfo;
+            intptr_t handle = _findfirst(("*" + extension).c_str(), &fileinfo);
+
+            if (handle == -1) {
+                cout << "No files found with extension " << extension << ".\n";
+            } else {
+                cout << "Files with extension " << extension << ":\n";
+                do {
+                    if (!(fileinfo.attrib & _A_SUBDIR)) {
+                        cout << fileinfo.name << "\n";
+                    }
+                } while (_findnext(handle, &fileinfo) == 0);
+                _findclose(handle);
+            }
+            break;
+        }
+        case 3: {
+            string pattern;
+            cout << "Enter the name pattern (e.g., moha*.*): ";
+            cin >> pattern;
+            cin.ignore();
+
+            struct _finddata_t fileinfo;
+            intptr_t handle = _findfirst(pattern.c_str(), &fileinfo);
+
+            if (handle == -1) {
+                cout << "No files found matching pattern " << pattern << ".\n";
+            } else {
+                cout << "Files matching pattern " << pattern << ":\n";
+                do {
+                    if (!(fileinfo.attrib & _A_SUBDIR)) {
+                        cout << fileinfo.name << "\n";
+                    }
+                } while (_findnext(handle, &fileinfo) == 0);
+                _findclose(handle);
+            }
+            break;
+        }
+        default:
+            cout << "Invalid option.\n";
+            break;
 }
 
 
