@@ -13,18 +13,25 @@ void change_dir();
 void directory(){ 
     string name;
     cout << "Enter the Directory name: ";	
-	getline(cin, name);
-    
-	if (_mkdir(name.c_str()) == 0) {
-        cout << name << " Directory created successfully.\n";
-    } else {
-        cout << "Failed to create directory.\n";
-    }
+	cin >> name;
+
+    if (_mkdir(name.c_str()) == 0) {
+     cout << name << " Directory created successfully.\n";
+   } else {
+       cout << "Failed to create directory.\n";
+        }
+	
 	cout<<"Press any key to continue...";
 	cin.get();
 }
 
-void list_file(){ 
+void list_file(){
+	char currentDir[FILENAME_MAX];
+	if (_getcwd(currentDIr, sizeof(currentDir))){
+		cout << "Current Directory: "<< currentDir <<"\n";
+	} else {
+		cout <<" Unable to retrieve the current directory \n";
+	}
     int files;
     cout <<"        LIST FILE DETAIL \n";
     cout <<"---------------------------------\n";
@@ -115,12 +122,12 @@ void change_dir(){
     cout << "3. Forward Directory\n";
     cout << "Enter the Number: ";
     cin >> option;
-    cin.ignore();
+    cin.ignore(); // Clear input buffer after reading option
 
     string newDir;
     switch (option) {
         case 1: {
-            
+            // Move one step back (to the parent directory)
             if (_chdir("..") == 0) {
                 cout << "Moved to the parent directory.\n";
             } else {
@@ -129,8 +136,8 @@ void change_dir(){
             break;
         }
         case 2: {
-            
-            if (_chdir("C:\\") == 0) { 
+            // Move to the root directory
+            if (_chdir("C:\\") == 0) { // Assuming Windows; adjust if necessary
                 cout << "Moved to the root directory.\n";
             } else {
                 cout << "Failed to move to the root directory.\n";
