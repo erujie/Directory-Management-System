@@ -1,203 +1,34 @@
 #include <iostream>
-#include <vector>
 #include <string>
-#include <direct.h> 
-#include <io.h> 
+#include <direct.h> // For _mkdir and _getcwd
 
 using namespace std;
 
-void list_file();
-void directory();
-void change_dir();
+void directory() {
+    // Buffer to store the current working directory path
+    char currentDir[FILENAME_MAX];
+    
+    // Retrieve the current working directory
+    if (_getcwd(currentDir, sizeof(currentDir))) {
+        cout << "Current Directory: " << currentDir << "\n";
+    } else {
+        cout << "Unable to retrieve the current directory.\n";
+        return; // Exit if current directory cannot be retrieved
+    }
 
-void directory(){ 
     string name;
-    cout << "Enter the Directory name: ";	
-	cin >> name;
-
+    cout << "Enter the Directory name: ";
+    getline(cin, name);
+    
+    // Create the new directory
     if (_mkdir(name.c_str()) == 0) {
-     cout << name << " Directory created successfully.\n";
-   } else {
-       cout << "Failed to create directory.\n";
-        }
-	
-	cout<<"Press any key to continue...";
-	cin.get();
-}
-
-void list_file(){
-	char currentDir[FILENAME_MAX];
-	if (_getcwd(currentDIr, sizeof(currentDir))){
-		cout << "Current Directory: "<< currentDir <<"\n";
-	} else {
-		cout <<" Unable to retrieve the current directory \n";
-	}
-    int files;
-    cout <<"        LIST FILE DETAIL \n";
-    cout <<"---------------------------------\n";
-    cout <<"1. List All Files\n";
-    cout <<"2. List of Extension Files\n";
-    cout <<"3. List of Name Wise\n";
-    cout <<" Enter the Number: ";
-    cin >> files;
-    cin.ignore();
-
-    switch (files) {
-        case 1: {
-            struct _finddata_t fileinfo;
-            intptr_t handle = _findfirst("*.*", &fileinfo);
-
-            if (handle == -1) {
-                cout << "No files found in the current directory.\n";
-            } else {
-                cout << "List of All(*.*) Files:\n";
-                do {
-                    if (!(fileinfo.attrib & _A_SUBDIR)) {
-                        cout << fileinfo.name << "\n";
-                    }
-                } while (_findnext(handle, &fileinfo) == 0);
-                _findclose(handle);
-            }
-            break;
-        }
-        case 2: {
-            string extension;
-            cout << "Enter the file extension (e.g., .txt): ";
-            cin >> extension;
-            cin.ignore();
-
-            struct _finddata_t fileinfo;
-            intptr_t handle = _findfirst(("*" + extension).c_str(), &fileinfo);
-
-            if (handle == -1) {
-                cout << "No files found with extension " << extension << ".\n";
-            } else {
-                cout << "Files with extension " << extension << ":\n";
-                do {
-                    if (!(fileinfo.attrib & _A_SUBDIR)) {
-                        cout << fileinfo.name << "\n";
-                    }
-                } while (_findnext(handle, &fileinfo) == 0);
-                _findclose(handle);
-            }
-            break;
-        }
-        case 3: {
-            string pattern;
-            cout << "Enter the name pattern (e.g., moha*.*): ";
-            cin >> pattern;
-            cin.ignore();
-
-            struct _finddata_t fileinfo;
-            intptr_t handle = _findfirst(pattern.c_str(), &fileinfo);
-
-            if (handle == -1) {
-                cout << "No files found matching pattern " << pattern << ".\n";
-            } else {
-                cout << "Files matching pattern " << pattern << ":\n";
-                do {
-                    if (!(fileinfo.attrib & _A_SUBDIR)) {
-                        cout << fileinfo.name << "\n";
-                    }
-                } while (_findnext(handle, &fileinfo) == 0);
-                _findclose(handle);
-            }
-            break;
-        }
-        default:
-            cout << "Invalid option.\n";
-            break;
+        cout << "Directory '" << name << "' created successfully.\n";
+        // Display the full path of the new directory
+        cout << "Directory location: " << currentDir << "\\" << name << "\n";
+    } else {
+        cout << "Failed to create directory.\n";
     }
-
+    
     cout << "Press any key to continue...";
-    cin.get();
-}
-
-void change_dir(){
-    int option;
-    cout << "     Change Directory \n";
-    cout << "--------------------------\n";
-    cout << "1. Step by Step Backward\n";
-    cout << "2. Go to Root Directory\n";
-    cout << "3. Forward Directory\n";
-    cout << "Enter the Number: ";
-    cin >> option;
-    cin.ignore(); // Clear input buffer after reading option
-
-    string newDir;
-    switch (option) {
-        case 1: {
-            // Move one step back (to the parent directory)
-            if (_chdir("..") == 0) {
-                cout << "Moved to the parent directory.\n";
-            } else {
-                cout << "Failed to move to the parent directory.\n";
-            }
-            break;
-        }
-        case 2: {
-            // Move to the root directory
-            if (_chdir("C:\\") == 0) { // Assuming Windows; adjust if necessary
-                cout << "Moved to the root directory.\n";
-            } else {
-                cout << "Failed to move to the root directory.\n";
-            }
-            break;
-        }
-        case 3: {
-            
-            cout << "Please enter the Directory Name: ";
-            getline(cin, newDir);
-
-            if (_chdir(newDir.c_str()) == 0) {
-                cout << "Successfully changed directory to " << newDir << ".\n";
-            } else {
-                cout << "Failed to change directory.\n";
-            }
-            break;
-        }
-        default:
-            cout << "Invalid option.\n";
-            break;
-    }
-
-    cout << "Press any key to continue...";
-    cin.get();
-}
-
-int main(int argc, char** argv) {
-    while(true) {
-        int menu;
-
-        cout <<"        MAIN MENU \n" ;
-        cout <<"--------------------------\n" ;
-
-        cout <<" 1. To Display List of Files. \n";
-        cout <<" 2. To Create New Directory. \n";
-        cout <<" 3. To Change the Working Directory. \n";
-        cout <<" 4. Exit. \n";
-        cout <<"Enter the Number: ";
-        cin >> menu;
-        cout <<"\n";
-
-        switch (menu) {
-        case 1:
-            list_file();
-            break;
-        case 2:
-            directory();
-           break;
-        case 3:
-        	change_dir();
-           break;
-        case 4:
-           cout <<"Exiting program...";
-           return 0;
-        default:
-           cout <<"INVALID OPTION\n";
-           cout <<"\n";
-        }
-    }
-
-    return 0;
+    cin.get(); // Wait for the user to press a key
 }
