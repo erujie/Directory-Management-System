@@ -123,54 +123,69 @@ void list_file(){
     cin.get();
 }
 
-void change_dir(){
+void change_dir() {
     int option;
-    cout << "     Change Directory \n";
-    cout << "--------------------------\n";
-    cout << "1. Step by Step Backward\n";
-    cout << "2. Go to Root Directory\n";
-    cout << "3. Forward Directory\n";
-    cout << "Enter the Number: ";
-    cin >> option;
-    cin.ignore();
+    char currentDir[PATH_MAX];
 
-    string newDir;
-    switch (option) {
-        case 1: {
-            if (_chdir("..") == 0) {
-                cout << "Moved to the parent directory.\n";
-            } else {
-                cout << "Failed to move to the parent directory.\n";
-            }
-            break;
-        }
-        case 2: {
-            if (_chdir("C:\\") == 0) {
-                cout << "Moved to the root directory.\n";
-            } else {
-                cout << "Failed to move to the root directory.\n";
-            }
-            break;
-        }
-        case 3: {
-            
-            cout << "Please enter the Directory Name: ";
-            getline(cin, newDir);
+    while (true) {
+        cout << "     Change Directory \n";
+        cout << "--------------------------\n";
+        cout << "1. Step by Step Backward\n";
+        cout << "2. Go to Root Directory\n";
+        cout << "3. Forward Directory\n";
+        cout << "4. Show Current Directory\n";
+        cout << "5. Exit\n";
+        cout << "Enter the Number: ";
+        cin >> option;
+        cin.ignore();
 
-            if (_chdir(newDir.c_str()) == 0) {
-                cout << "Successfully changed directory to " << newDir << ".\n";
-            } else {
-                cout << "Failed to change directory.\n";
+        switch (option) {
+            case 1: {
+                if (_chdir("..") == 0) {
+                    cout << "Moved to the parent directory.\n";
+                } else {
+                    cout << "Failed to move to the parent directory.\n";
+                }
+                break;
             }
-            break;
+            case 2: {
+                if (_chdir("C:\\") == 0) {
+                    cout << "Moved to the root directory.\n";
+                } else {
+                    cout << "Failed to move to the root directory.\n";
+                }
+                break;
+            }
+            case 3: {
+                string newDir;
+                cout << "Please enter the Directory Name: ";
+                getline(cin, newDir);
+
+                if (_chdir(newDir.c_str()) == 0) {
+                    cout << "Successfully changed directory to " << newDir << ".\n";
+                } else {
+                    cout << "Failed to change directory.\n";
+                }
+                break;
+            }
+            case 4: {
+                if (_getcwd(currentDir, sizeof(currentDir)) != NULL) {
+                    cout << "Current Directory: " << currentDir << endl;
+                } else {
+                    cout << "Failed to retrieve the current directory.\n";
+                }
+                break;
+            }
+            case 5:
+                return;
+            default:
+                cout << "Invalid option.\n";
+                break;
         }
-        default:
-            cout << "Invalid option.\n";
-            break;
+
+        cout << "Press any key to continue...";
+        cin.get();
     }
-
-    cout << "Press any key to continue...";
-    cin.get();
 }
 
 int main(int argc, char** argv) {
